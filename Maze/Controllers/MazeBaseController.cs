@@ -9,7 +9,7 @@ namespace Maze.Controllers
 
         private IMazeValidator _mazeValidator;
         public IMazeValidator MazeValidator
-            => _mazeValidator ?? (_mazeValidator = new MazeValidator());
+            => _mazeValidator ?? (_mazeValidator = new NewUserRequestValidator());
 
         private MazeDataContracts _dataAccessLayer;
         public MazeDataContracts DataAccessLayer

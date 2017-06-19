@@ -73,7 +73,14 @@ button {
         font-weight: bold;
     }
 
-
+.message-area {
+    margin-top: 20px;
+    color: #f5f5f5;
+    font-style: italic;
+    font-size: 16px;
+    padding: 25px;
+    display: none;
+}
 /**************************************
 **
 **   Custom default button

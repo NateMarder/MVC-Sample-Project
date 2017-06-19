@@ -38,19 +38,20 @@ namespace Maze.Controllers
             return new JsonResult();
         }
 
-        //TODO : Move This Logic to UserOperationsController
-        public JsonResult UserLogin( UserViewModel model )
-        {
-            var id = DataAccessLayer.Users
-                .Where( u => u.Email == model.Email )
-                .Select( u => u.Id )
-                .FirstOrDefault();
-            if( true )
-            {
-                Session[SessionKeys.UserId] = id;
-            }
-            return new JsonResult();
-        }
+        ////TODO : Move This Logic to UserOperationsController
+        //public JsonResult UserLogin( UserViewModel model )
+        //{
+        //    return RedirectJsonResult("UserLogin", "UserOperations");
+        //    var id = DataAccessLayer.Users
+        //        .Where( u => u.Email == model.Email )
+        //        .Select( u => u.Id )
+        //        .FirstOrDefault();
+        //    if( true )
+        //    {
+        //        Session[SessionKeys.UserId] = id;
+        //    }
+        //    return new JsonResult();
+        //}
 
         //TODO Move This Logic to UserOperationsController
         [AllowAnonymous]
@@ -59,12 +60,12 @@ namespace Maze.Controllers
         {
             var result = new DataOperationResult();
             var validationResult = MazeValidator.Validate( model );
-            if( !validationResult.OperationSuccess )
+            if( !validationResult.ValidModel )
             {
                 return new DataOperationResult
                 {
                     StatusCode = HttpStatusCode.InternalServerError,
-                    OperationSuccess = false,
+                    ValidModel = false,
                     Messages = validationResult.Messages
                 };
             }
@@ -80,12 +81,12 @@ namespace Maze.Controllers
 
                 DataAccessLayer.Users.Add( newUser );
                 DataAccessLayer.SaveChanges();
-                result.OperationSuccess = true;
+                result.ValidModel = true;
                 result.Messages.Add( "The First Rule of Maze Club is Don't Talk About Maze Club" );
             }
             catch( Exception )
             {
-                result.OperationSuccess = false;
+                result.ValidModel = false;
                 result.Messages.Add( "Unable to add new user right now" );
             }
 

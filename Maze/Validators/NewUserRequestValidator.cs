@@ -10,26 +10,34 @@ namespace Maze.Validators
     // for faking things out (unit testing)
     public interface IMazeValidator  
     {
-        DataOperationResult Validate(UserViewModel model);
+        DataOperationResult Validate(MazeBaseViewModel model);
     }
 
-    public class MazeValidator : IMazeValidator
+    public class NewUserRequestValidator : IMazeValidator
     {
         private MazeDataContracts _dataAccessLayer;
         private MazeDataContracts DataAccessLayer
             => _dataAccessLayer ?? (_dataAccessLayer = new MazeDataContracts());
 
-        public DataOperationResult Validate( UserViewModel model )
+        public virtual DataOperationResult Validate( MazeBaseViewModel model )
         {
+            var newUserModel = model as UserViewModel;
             var validationMessages = new List<string>();
-            validationMessages.AddRange( CheckName( model.Name, validationMessages ));
-            validationMessages.AddRange( CheckPassword( model.Password, validationMessages ));
-            validationMessages.AddRange( CheckEmail( model.Email, validationMessages ));
+            if (newUserModel != null)
+            {
+                validationMessages.AddRange(CheckName(newUserModel.Name, validationMessages));
+                validationMessages.AddRange(CheckPassword(newUserModel.Password, validationMessages));
+                validationMessages.AddRange(CheckEmail(newUserModel.Email, validationMessages));
+            }
+            else
+            {
+                validationMessages.Add("internal system error encountered");
+            }
 
             return new DataOperationResult
             {
                 StatusCode = HttpStatusCode.OK,
-                OperationSuccess = !validationMessages.Any(),
+                ValidModel = !validationMessages.Any(),
                 Messages = validationMessages
             };
         }
