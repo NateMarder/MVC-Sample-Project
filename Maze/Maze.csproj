@@ -164,22 +164,26 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="CodeFirst\Migrations\201706172307026_InitialCreate.cs" />
-    <Compile Include="CodeFirst\Migrations\201706172307026_InitialCreate.Designer.cs">
+    <Compile Include="Migrations\201706172307026_InitialCreate.cs" />
+    <Compile Include="Migrations\201706172307026_InitialCreate.Designer.cs">
       <DependentUpon>201706172307026_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="CodeFirst\Migrations\201706181927324_Race_Date.cs" />
-    <Compile Include="CodeFirst\Migrations\201706181927324_Race_Date.Designer.cs">
+    <Compile Include="Migrations\201706181927324_Race_Date.cs" />
+    <Compile Include="Migrations\201706181927324_Race_Date.Designer.cs">
       <DependentUpon>201706181927324_Race_Date.cs</DependentUpon>
     </Compile>
-    <Compile Include="CodeFirst\Migrations\Configuration.cs" />
-    <Compile Include="CodeFirst\Migrations\201706181931081_Alter_RaceDate.cs" />
-    <Compile Include="CodeFirst\Migrations\201706181931081_Alter_RaceDate.Designer.cs">
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\201706181931081_Alter_RaceDate.cs" />
+    <Compile Include="Migrations\201706181931081_Alter_RaceDate.Designer.cs">
       <DependentUpon>201706181931081_Alter_RaceDate.cs</DependentUpon>
     </Compile>
-    <Compile Include="CodeFirst\Migrations\201706181933217_Alter_RaceDate2.cs" />
-    <Compile Include="CodeFirst\Migrations\201706181933217_Alter_RaceDate2.Designer.cs">
+    <Compile Include="Migrations\201706181933217_Alter_RaceDate2.cs" />
+    <Compile Include="Migrations\201706181933217_Alter_RaceDate2.Designer.cs">
       <DependentUpon>201706181933217_Alter_RaceDate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706192119580_PopulateSampleData.cs" />
+    <Compile Include="Migrations\201706192119580_PopulateSampleData.Designer.cs">
+      <DependentUpon>201706192119580_PopulateSampleData.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\DashboardViewModel.cs" />
     <Compile Include="Models\RaceResultViewModel.cs" />
@@ -190,6 +194,7 @@
     <Compile Include="Validators\MazeValidator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CodeFirst\CustomSqlScripts\addSampleData.sql" />
     <Content Include="Scripts\Libs\jquery.mobile-events.js" />
     <Content Include="Scripts\Libs\velocity.min.js" />
     <Content Include="Styles\css\bootstrap.css" />
@@ -271,17 +276,20 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CodeFirst\Migrations\201706172307026_InitialCreate.resx">
+    <EmbeddedResource Include="Migrations\201706172307026_InitialCreate.resx">
       <DependentUpon>201706172307026_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CodeFirst\Migrations\201706181927324_Race_Date.resx">
+    <EmbeddedResource Include="Migrations\201706181927324_Race_Date.resx">
       <DependentUpon>201706181927324_Race_Date.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CodeFirst\Migrations\201706181931081_Alter_RaceDate.resx">
+    <EmbeddedResource Include="Migrations\201706181931081_Alter_RaceDate.resx">
       <DependentUpon>201706181931081_Alter_RaceDate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CodeFirst\Migrations\201706181933217_Alter_RaceDate2.resx">
+    <EmbeddedResource Include="Migrations\201706181933217_Alter_RaceDate2.resx">
       <DependentUpon>201706181933217_Alter_RaceDate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706192119580_PopulateSampleData.resx">
+      <DependentUpon>201706192119580_PopulateSampleData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
