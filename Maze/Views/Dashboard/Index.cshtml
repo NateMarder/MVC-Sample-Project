@@ -1,0 +1,41 @@
+﻿@using Maze.Models
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "../Shared/_Layout.cshtml";
+    @model DashboardViewModel
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="dashboard-content">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Race Date</th> 
+                        <th>@Html.Raw( @Model.UserModel.Name ) 's Time</th>
+                        <th>Maze Link</th>
+                    </tr>
+                </thead>
+                <tbody id="dashboard-table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var userName = '@Html.Raw(@Model.UserModel.Name)';
+        $("#modelcheck").html(userName);
+        $("#username-header-field a").text(userName + "'s Dashboard");
+
+        var setup = new MazeApp.Dashboard({
+            data: @Html.Raw(Json.Encode(Model.Races)),
+            tableBody: $("#dashboard-table-body")
+        });
+    });
+
+</script>    
+@AntiForgery.GetHtml()

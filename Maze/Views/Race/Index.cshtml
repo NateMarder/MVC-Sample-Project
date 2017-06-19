@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Maze Race";
+    Layout = "../Shared/_Layout.cshtml";
+    @model Maze.Models.RaceViewModel
+}
+
+
+<div class="content">
+    <div id="svg-container" class="mz-container"></div>
+    <div id="msg-container" class="message-div">
+        <div class="level-defeated-msg"></div>
+    </div>
+
+    <!-- control zone -->
+    <div class="control-zone">
+        <button class="btn footer-area-btn grey">
+            <span id="stopwatch" class="racemode-label"></span>
+        </button>
+        <button id="racemode" class="btn footer-area-btn grey">
+            <span class="racemode-label"></span><i class="fa fa-retweet"></i>
+        </button>
+        <button id="new-maze" class="btn footer-area-btn">
+            <i class="fa fa-refresh slow-spin"></i>
+        </button>
+        <button id="level-display" class="btn footer-area-btn">
+            <span>Level :: 1</span>
+        </button>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var app = new MazeApp.MazeGameController(@Html.Raw(Json.Encode(Model)));
+    });
+</script>
