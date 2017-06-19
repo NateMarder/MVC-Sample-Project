@@ -1,6 +1,6 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Web.Mvc;
-using System.Collections.Generic;
 
 namespace Maze.Results
 {

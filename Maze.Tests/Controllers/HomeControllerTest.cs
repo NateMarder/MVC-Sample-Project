@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Maze.Controllers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 
 //TODO Implement implement unit tests here

@@ -1,6 +1,7 @@
 using System.Data.Entity.Migrations;
+using Maze.CodeFirst;
 
-namespace Maze.CodeFirst.Migrations
+namespace Maze.Migrations
 {
     internal sealed class Configuration : DbMigrationsConfiguration<MazeDataContracts>
     {

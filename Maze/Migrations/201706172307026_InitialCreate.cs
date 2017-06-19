@@ -1,7 +1,7 @@
-namespace Maze.CodeFirst.Migrations
+using System.Data.Entity.Migrations;
+
+namespace Maze.Migrations
 {
-    using System.Data.Entity.Migrations;
-    
     public partial class InitialCreate : DbMigration
     {
         public override void Up()
@@ -11,7 +11,7 @@ namespace Maze.CodeFirst.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Hash = c.String(),
+                        Hash = c.String()
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -23,7 +23,7 @@ namespace Maze.CodeFirst.Migrations
                         MazeId = c.Int(nullable: false),
                         UserId = c.Int(nullable: false),
                         CompletionTime = c.Single(nullable: false),
-                        Date = c.DateTime(nullable: false),
+                        Date = c.DateTime(nullable: false)
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -35,7 +35,7 @@ namespace Maze.CodeFirst.Migrations
                         Name = c.String(),
                         Email = c.String(),
                         JoinDate = c.DateTime(nullable: true),
-                        Password = c.String(),
+                        Password = c.String()
                     })
                 .PrimaryKey(t => t.Id);
             

@@ -1,9 +1,7 @@
-﻿@using Maze.Models
-
-@{
+﻿@{
     ViewBag.Title = "Dashboard";
     Layout = "../Shared/_Layout.cshtml";
-    @model DashboardViewModel
+    @model Maze.Models.DashboardViewModel
 }
 
 <div class="row">
@@ -13,7 +11,7 @@
                 <thead>
                     <tr>
                         <th>Race Date</th> 
-                        <th>@Html.Raw( @Model.UserModel.Name ) 's Time</th>
+                        <th>@Html.Raw( Model.UserModel.Name ) 's Time</th>
                         <th>Maze Link</th>
                     </tr>
                 </thead>
@@ -27,7 +25,7 @@
 <script type="text/javascript">
 
     document.addEventListener("DOMContentLoaded", function(event) {
-        var userName = '@Html.Raw(@Model.UserModel.Name)';
+        var userName = '@Html.Raw(Model.UserModel.Name)';
         $("#modelcheck").html(userName);
         $("#username-header-field a").text(userName + "'s Dashboard");
 

@@ -4,7 +4,6 @@ using Maze.CodeFirst;
 using Maze.Models;
 using Maze.Validators;
 
-
 namespace Maze.Controllers
 {
     public class DashboardController : MazeBaseController

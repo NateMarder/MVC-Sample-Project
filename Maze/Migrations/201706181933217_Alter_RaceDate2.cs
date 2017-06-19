@@ -1,7 +1,7 @@
-namespace Maze.CodeFirst.Migrations
+using System.Data.Entity.Migrations;
+
+namespace Maze.Migrations
 {
-    using System.Data.Entity.Migrations;
-    
     public partial class Alter_RaceDate2 : DbMigration
     {
         public override void Up()

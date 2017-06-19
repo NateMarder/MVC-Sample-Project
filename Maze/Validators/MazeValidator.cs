@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Maze.CodeFirst;
 using Maze.Models;
 using Maze.Results;
 
@@ -14,9 +15,9 @@ namespace Maze.Validators
 
     public class MazeValidator : IMazeValidator
     {
-        private CodeFirst.MazeDataContracts _dataAccessLayer;
-        private CodeFirst.MazeDataContracts DataAccessLayer
-            => _dataAccessLayer ?? (_dataAccessLayer = new CodeFirst.MazeDataContracts());
+        private MazeDataContracts _dataAccessLayer;
+        private MazeDataContracts DataAccessLayer
+            => _dataAccessLayer ?? (_dataAccessLayer = new MazeDataContracts());
 
         public DataOperationResult Validate( UserViewModel model )
         {
@@ -25,7 +26,7 @@ namespace Maze.Validators
             validationMessages.AddRange( CheckPassword( model.Password, validationMessages ));
             validationMessages.AddRange( CheckEmail( model.Email, validationMessages ));
 
-            return new DataOperationResult()
+            return new DataOperationResult
             {
                 StatusCode = HttpStatusCode.OK,
                 OperationSuccess = !validationMessages.Any(),

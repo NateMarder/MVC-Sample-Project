@@ -1,10 +1,9 @@
+using System;
+using System.Data.Entity.Migrations;
 using System.IO;
 
-namespace Maze.CodeFirst.Migrations
+namespace Maze.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class PopulateSampleData : DbMigration
     {
         public override void Up()
