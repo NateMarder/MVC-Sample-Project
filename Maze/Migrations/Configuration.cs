@@ -6,7 +6,7 @@ namespace Maze.CodeFirst.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "Maze.CodeFirst.MazeDataContracts";
         }
 
