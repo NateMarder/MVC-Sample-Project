@@ -186,12 +186,15 @@
       <DependentUpon>201706192119580_PopulateSampleData.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\DashboardViewModel.cs" />
+    <Compile Include="Models\MazeBaseViewModel.cs" />
     <Compile Include="Models\RaceResultViewModel.cs" />
+    <Compile Include="Models\UserLoginViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\RaceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\ValidationResult.cs" />
-    <Compile Include="Validators\MazeValidator.cs" />
+    <Compile Include="Validators\NewUserRequestValidator.cs" />
+    <Compile Include="Validators\UserLoginValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CodeFirst\CustomSqlScripts\addSampleData.sql" />
@@ -269,6 +272,7 @@
     <TypeScriptCompile Include="Scripts\Ts\MazeUtilites\Defaults.ts" />
     <TypeScriptCompile Include="Scripts\Ts\MazeUtilites\Utilities.ts" />
     <TypeScriptCompile Include="Scripts\Ts\PrimaryMazeGameController.ts" />
+    <TypeScriptCompile Include="Scripts\Ts\UserOperationsHelper.ts" />
     <TypeScriptCompile Include="Typings\globals\jquery\index.d.ts" />
     <TypeScriptCompile Include="Typings\globals\velocity-animate\index.d.ts" />
   </ItemGroup>

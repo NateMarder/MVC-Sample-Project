@@ -2,7 +2,7 @@
 
 namespace Maze.Models
 {
-    public class RaceViewModel
+    public class RaceViewModel : MazeBaseViewModel
     {
         public int? RaceId { get; set; }
         public int MazeId { get; set; }

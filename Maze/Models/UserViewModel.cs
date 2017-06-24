@@ -1,6 +1,6 @@
 ﻿namespace Maze.Models
 {
-    public class UserViewModel
+    public class UserViewModel : MazeBaseViewModel
     {
         public string Name { get; set; }
         public string Email { get; set; }

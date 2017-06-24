@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using Maze.CodeFirst;
+using Maze.Models;
+using Maze.Results;
 using Maze.Validators;
 
 namespace Maze.Controllers
@@ -10,7 +14,7 @@ namespace Maze.Controllers
 
         private IMazeValidator _mazeValidator;
         private IMazeValidator MazeValidator
-            => _mazeValidator ?? (_mazeValidator = new MazeValidator());
+            => _mazeValidator ?? (_mazeValidator = new NewUserRequestValidator());
 
         private MazeDataContracts _dataAccessLayer;
         private MazeDataContracts DataAccessLayer
@@ -27,23 +31,87 @@ namespace Maze.Controllers
             _mazeValidator = mazeValidator;
             _dataAccessLayer = dataAccessLayer;
         }
-        
-        //TODO Implement login here - session should begin here
-        public JsonResult UserLogin()
+
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult UserLogin( UserLoginViewModel model )
         {
-            throw new NotImplementedException();
+            var validator = new UserLoginValidator();
+            var validationResult = validator.Validate( model );
+            var result = new LoginSuccessResult();
+
+            if( validationResult.Valid )
+            {
+                var user = DataAccessLayer.Users.FirstOrDefault( u => u.Email.Equals( model.UserEmail ) );
+                if( user != null )
+                {
+                    Session[SessionKeys.UserId] = user.Id;
+                    result.Status = HttpStatusCode.Accepted;
+                    result.Message = "Login successful.";
+                    result.UserId = user.Id;
+
+                    return result;
+                }
+            }
+
+            result.Status = HttpStatusCode.NotAcceptable;
+            result.Message = validationResult.Messages.ToString();
+
+            return result;
         }
 
         //TODO Implement logout here - session should abandon here
-        public JsonResult UserLogout()
+        public JsonResult UserLogout( UserViewModel model )
         {
-            throw new NotImplementedException();
+            Session.Abandon();
+
+            //TODO Return user log out confirmation page
+            return new JsonResult();
         }
 
-
-        public JsonResult CreateNewUser()
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult CreateNewUser( UserViewModel model )
         {
-            throw new NotImplementedException();
+            var result = new OperationSuccessResult();
+            var validationResult = MazeValidator.Validate( model );
+            if( !validationResult.Valid )
+            {
+                return new OperationSuccessResult( HttpStatusCode.BadRequest )
+                {
+                    Data = Json( validationResult.Messages ),
+                };
+            }
+
+            try
+            {
+                var newUser = new User
+                {
+                    Name = model.Name,
+                    Email = model.Email,
+                    Password = model.Password
+                };
+
+                DataAccessLayer.Users.Add( newUser );
+                DataAccessLayer.SaveChanges();
+                result.Messages.Add( "Welcome to Maze Club, " + model.Name + ". " +
+                                     "\nThe First Rule of Maze Club is Don't " +
+                                     "Talk About Maze Club" );
+            }
+            catch( Exception )
+            {
+                result.Messages.Add( "Unable to add new user right now" );
+            }
+
+            return new OperationSuccessResult( HttpStatusCode.OK )
+            {
+                Data = Json( result.Messages )
+            };
         }
+    }
+
+    public class SessionKeys
+    {
+        public const string UserId = "UserId";
     }
 }

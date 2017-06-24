@@ -1,24 +1,24 @@
-﻿@{
+﻿@using Maze.Controllers
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="login-container">
     <div class="row">
 
-            @*IN*@
             <div class="col-md-6 cover">
                 <h2>Sign In</h2>
-                <form>
+                <form id="signin">
                     <div class="form-group row">
-                        <label for="inputEmail3" class="sr-only">Email</label>
+                        <label for="user-email" class="sr-only">Email</label>
                         <div class="col-sm-12">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                            <input type="email" class="form-control" id="user-email" placeholder="Email">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputPassword3" class="sr-only">Password</label>
+                        <label for="user-password" class="sr-only">Password</label>
                         <div class="col-sm-12">
-                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            <input type="password" class="form-control" id="user-password" placeholder="Password">
                         </div>
                     </div>
 
@@ -30,26 +30,25 @@
                 </form>
             </div>
 
-            @*UP*@
             <div class="col-md-6 cover">
                 <h2>Sign Up</h2>
                 <form id="signup">
                     <div class="form-group row">
-                        <label for="inputUserNamel4" class="sr-only">Name</label>
+                        <label for="new-user-name" class="sr-only">Name</label>
                         <div class="col-sm-12">
-                            <input class="form-control" id="inputUserNamel4" placeholder="Name">
+                            <input class="form-control" id="new-user-name" placeholder="Name">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputEmail4" class="col-sm-2 col-form-label sr-only">Email</label>
+                        <label for="new-user-email" class="col-sm-2 col-form-label sr-only">Email</label>
                         <div class="col-sm-12">
-                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                            <input type="email" class="form-control" id="new-user-email" placeholder="Email">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputPassword4" class="col-sm-2 col-form-label sr-only">Password</label>
+                        <label for="new-user-password" class="col-sm-2 col-form-label sr-only">Password</label>
                         <div class="col-sm-12">
-                            <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                            <input type="password" class="form-control" id="new-user-password" placeholder="Password">
                         </div>
                     </div>
 
@@ -61,6 +60,10 @@
                 </form>
             </div>
 
+    </div>  
+    
+    <div class="row message-area">
+        
     </div>
 </div>
 
@@ -68,31 +71,11 @@
 
 <script type="text/javascript">
 
-    $("#signup").submit(function(e) {
-        e.preventDefault();
-
-        var newUserModel = {
-            Name: $("#inputUserNamel4").val(),
-            Email: $("#inputEmail4").val(),
-            Password: $("#inputPassword4").val()
-        };
-
-        var url = window.location.href + "@Url.Action("AddNewUser", "Home")";
-        console.log("\nhitting: " + url);
-        console.log("  --> name: " +
-            newUserModel.Name +
-            ", email: " +
-            newUserModel.Email +
-            ", pw: " +
-            newUserModel.Password);
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: newUserModel,
-            success: function(data) {
-                console.log(data);
-            }
+    $(document).ready(function() {
+        var userOperationsHelper = new UserOperationsHelper({
+            signUpUrl: "@Url.Action( "CreateNewUser", "UserOperations" )",
+            signInUrl: "@Url.Action("UserLogin","UserOperations")"
         });
     });
+
 </script>

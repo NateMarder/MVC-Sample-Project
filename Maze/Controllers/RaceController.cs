@@ -60,7 +60,7 @@ namespace Maze.Controllers
         }
 
         // TO-DO Enable Maze Saving!
-        public DataOperationResult SaveRaceResult( RaceResultViewModel model )
+        public OperationSuccessResult SaveRaceResult( RaceResultViewModel model )
         {
             throw new NotImplementedException();
         }
