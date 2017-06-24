@@ -11,20 +11,31 @@ class UserOperationsHelper {
     }
 
     signUpNewUser( userModel ): void {
-        var _this = this;
-        const callback:JQueryXHR = $.ajax( {
+
+        const request = $.ajax( {
+            global: true,
+            async: true,
+            dataType: "JSON",
             type: "POST",
-            url: _this.signUpUrl,
-            data: userModel,
-            success: ( response ) => {
-                _this.printResult(response, "[USER CREATION]");
-                alert( "success" );
+            url: this.signUpUrl,
+            data: userModel
+        } );
+
+        request.done((result) => {
+
+            if (result.status === 200) {
+                console.log("\ndone method \n  result data --> " + result.Data);
+            }
+            else {
+                console.log("\ndone method \n  result data --> " + result.Data);
             }
         } );
 
-        callback.always((response) => {
-            _this.printResult(response, "[USER CREATION]");
-        });
+        request.fail((result) => {
+            console.log( "Failed to create user: " + result.status );
+            console.log( "\n Reponse text: " + result.responseJSON.Data );
+        } );
+
     }
 
     signInExistingUser( data ): void {
@@ -34,19 +45,6 @@ class UserOperationsHelper {
             url: this.signInUrl,
             data: data
         } );
-
-        promise.done(( response ) => {
-            this.printResult( response, "[Sign In Existing User]" );
-        } );
-    }
-
-    printResult( response: any, operationType: string ): void {
-
-        console.log( "\nResponse Content From Operation: " + operationType );
-        console.log( "\n   Status --> " + response.status );
-        console.log( "\n  Message --> " + response.message );
-        console.log( "\n     Data -->  " + response.data );
-
     }
 
     setupBindings( urls: any ): void {

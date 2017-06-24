@@ -71,19 +71,18 @@ namespace Maze.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public OperationSuccessResult CreateNewUser( UserViewModel model )
+        public JsonResult CreateNewUser( UserViewModel model )
         {
             var result = new OperationSuccessResult();
             var validationResult = MazeValidator.Validate( model );
             if( !validationResult.Valid )
             {
-                return new OperationSuccessResult
+                return new OperationSuccessResult( HttpStatusCode.BadRequest )
                 {
-                    StatusCode = HttpStatusCode.InternalServerError,
-                    ValidModel = false,
-                    Messages = validationResult.Messages
+                    Data = Json( validationResult.Messages ),
                 };
             }
+
             try
             {
                 var newUser = new User
@@ -95,7 +94,7 @@ namespace Maze.Controllers
 
                 DataAccessLayer.Users.Add( newUser );
                 DataAccessLayer.SaveChanges();
-                result.Messages.Add( "Welcome to Maze Club, "+model.Name+". " +
+                result.Messages.Add( "Welcome to Maze Club, " + model.Name + ". " +
                                      "\nThe First Rule of Maze Club is Don't " +
                                      "Talk About Maze Club" );
             }
@@ -104,8 +103,10 @@ namespace Maze.Controllers
                 result.Messages.Add( "Unable to add new user right now" );
             }
 
-            result.Data = Json( result.Messages );
-            return result;
+            return new OperationSuccessResult( HttpStatusCode.OK )
+            {
+                Data = Json( result.Messages )
+            };
         }
     }
 

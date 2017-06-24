@@ -7,18 +7,25 @@ namespace Maze.Results
 {
     public class OperationSuccessResult : JsonResult
     {
-        public List<string> Messages { get; set; }
-        public bool ValidModel { get; set; }
-        public HttpStatusCode StatusCode { get; set; }
-
         public OperationSuccessResult()
         {
             Messages = new List<string>();
         }
-    }
 
-    public class DataOperationResult : OperationSuccessResult
-    {
+        public OperationSuccessResult(HttpStatusCode statusCode)
+        {
+            StatusCode = statusCode;
+            Messages = new List<string>();
+        }
+
+        public List<string> Messages { get; set; }
+        public HttpStatusCode StatusCode { get; set; }
+
+        public override void ExecuteResult(ControllerContext context)
+        {
+            context.RequestContext.HttpContext.Response.StatusCode = (int) StatusCode;
+            base.ExecuteResult(context);
+        }
     }
 
     public class ValidationResult
