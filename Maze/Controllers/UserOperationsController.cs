@@ -32,15 +32,15 @@ namespace Maze.Controllers
             _dataAccessLayer = dataAccessLayer;
         }
 
-        [HttpPost]
         [AllowAnonymous]
+        [HttpPost]
         public JsonResult UserLogin( UserLoginViewModel model )
         {
             var validator = new UserLoginValidator();
             var validationResult = validator.Validate( model );
             var result = new LoginSuccessResult();
 
-            if( validationResult.ValidModel )
+            if( validationResult.Valid )
             {
                 var user = DataAccessLayer.Users.FirstOrDefault( u => u.Email.Equals( model.UserEmail ) );
                 if( user != null )
@@ -61,16 +61,56 @@ namespace Maze.Controllers
         }
 
         //TODO Implement logout here - session should abandon here
-        public JsonResult UserLogout()
+        public JsonResult UserLogout( UserViewModel model )
         {
-            throw new NotImplementedException();
+            Session.Abandon();
+
+            //TODO Return user log out confirmation page
+            return new JsonResult();
         }
 
-
-        public JsonResult CreateNewUser()
+        [AllowAnonymous]
+        [HttpPost]
+        public OperationSuccessResult CreateNewUser( UserViewModel model )
         {
-            throw new NotImplementedException();
+            var result = new OperationSuccessResult();
+            var validationResult = MazeValidator.Validate( model );
+            if( !validationResult.Valid )
+            {
+                return new OperationSuccessResult
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    ValidModel = false,
+                    Messages = validationResult.Messages
+                };
+            }
+            try
+            {
+                var newUser = new User
+                {
+                    Name = model.Name,
+                    Email = model.Email,
+                    Password = model.Password
+                };
+
+                DataAccessLayer.Users.Add( newUser );
+                DataAccessLayer.SaveChanges();
+                result.Messages.Add( "Welcome to Maze Club, "+model.Name+". " +
+                                     "\nThe First Rule of Maze Club is Don't " +
+                                     "Talk About Maze Club" );
+            }
+            catch( Exception )
+            {
+                result.Messages.Add( "Unable to add new user right now" );
+            }
+
+            result.Data = Json( result.Messages );
+            return result;
         }
     }
 
+    public class SessionKeys
+    {
+        public const string UserId = "UserId";
+    }
 }

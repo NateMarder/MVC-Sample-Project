@@ -272,6 +272,7 @@
     <TypeScriptCompile Include="Scripts\Ts\MazeUtilites\Defaults.ts" />
     <TypeScriptCompile Include="Scripts\Ts\MazeUtilites\Utilities.ts" />
     <TypeScriptCompile Include="Scripts\Ts\PrimaryMazeGameController.ts" />
+    <TypeScriptCompile Include="Scripts\Ts\UserOperationsHelper.ts" />
     <TypeScriptCompile Include="Typings\globals\jquery\index.d.ts" />
     <TypeScriptCompile Include="Typings\globals\velocity-animate\index.d.ts" />
   </ItemGroup>

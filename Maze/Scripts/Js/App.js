@@ -62,6 +62,66 @@ var MazeApp;
 document.addEventListener("DOMContentLoaded", function () {
     var app = new MazeApp.MazeAppController();
 });
+var UserOperationsHelper = (function () {
+    function UserOperationsHelper(model) {
+        this.signInUrl = model.signInUrl;
+        this.signUpUrl = model.signUpUrl;
+        this.setupBindings(model);
+    }
+    UserOperationsHelper.prototype.signUpNewUser = function (userModel) {
+        var _this = this;
+        var callback = $.ajax({
+            type: "POST",
+            url: _this.signUpUrl,
+            data: userModel,
+            success: function (response) {
+                _this.printResult(response, "[USER CREATION]");
+                alert("success");
+            }
+        });
+        callback.always(function (response) {
+            _this.printResult(response, "[USER CREATION]");
+        });
+    };
+    UserOperationsHelper.prototype.signInExistingUser = function (data) {
+        var _this = this;
+        var promise = $.ajax({
+            type: "POST",
+            url: this.signInUrl,
+            data: data
+        });
+        promise.done(function (response) {
+            _this.printResult(response, "[Sign In Existing User]");
+        });
+    };
+    UserOperationsHelper.prototype.printResult = function (response, operationType) {
+        console.log("\nResponse Content From Operation: " + operationType);
+        console.log("\n   Status --> " + response.status);
+        console.log("\n  Message --> " + response.message);
+        console.log("\n     Data -->  " + response.data);
+    };
+    UserOperationsHelper.prototype.setupBindings = function (urls) {
+        var _this = this;
+        $("#signin").submit(function (e) {
+            e.preventDefault();
+            var loginData = {
+                Email: $("#user-email").val(),
+                Password: $("#user-password").val()
+            };
+            _this.signInExistingUser(loginData);
+        });
+        $("#signup").submit(function (e) {
+            e.preventDefault();
+            var signUpData = {
+                Name: $("#new-user-name").val(),
+                Email: $("#new-user-email").val(),
+                Password: $("#new-user-password").val()
+            };
+            _this.signUpNewUser(signUpData);
+        });
+    };
+    return UserOperationsHelper;
+}());
 var MazeApp;
 (function (MazeApp) {
     var CompressionHandler = (function () {

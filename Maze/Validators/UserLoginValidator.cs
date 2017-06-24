@@ -14,7 +14,7 @@ namespace Maze.Validators
         private MazeDataContracts DataAccessLayer
             => _dataAccessLayer ?? (_dataAccessLayer = new MazeDataContracts());
 
-        public virtual DataOperationResult Validate(MazeBaseViewModel model)
+        public virtual ValidationResult Validate(MazeBaseViewModel model)
         {
             var newUserModel = model as UserLoginViewModel;
             var validationMessages = new List<string>();
@@ -26,11 +26,10 @@ namespace Maze.Validators
             else
                 validationMessages.Add("Invalid email / password combination provided");
 
-            return new DataOperationResult
+            return new ValidationResult
             {
-                StatusCode = HttpStatusCode.OK,
-                ValidModel = !validationMessages.Any(),
-                Messages = validationMessages
+                Messages = validationMessages,
+                Valid = !validationMessages.Any(), 
             };
         }
 
